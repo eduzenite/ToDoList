@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ToDoRequest;
+use App\Http\Requests\ToDoStatusRequest;
 use App\Services\ToDoService;
 use Illuminate\Http\Request;
 use Throwable;
@@ -28,7 +30,7 @@ class ToDoListController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(ToDoRequest $request)
     {
         try {
             $toDo = $this->toDoService->create($request->all());
@@ -48,6 +50,22 @@ class ToDoListController extends Controller
             if (!$toDo) {
                 return response()->json(['error' => 'Tarefa não encontrada'], 404);
             }
+            return response()->json(["data" => $toDo]);
+        } catch (Throwable $e) {
+            return response()->json(['error', $e->getMessage(), 500]);
+        }
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(ToDoRequest $request, string $id)
+    {
+        try {
+            $toDo = $this->toDoService->update($request->all(), $id);
+            if (!$toDo) {
+                return response()->json(['error' => 'Tarefa não encontrada'], 404);
+            }
             return response()->json($toDo);
         } catch (Throwable $e) {
             return response()->json(['error', $e->getMessage(), 500]);
@@ -57,10 +75,10 @@ class ToDoListController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function updateStatus(ToDoStatusRequest $request, string $id)
     {
         try {
-            $toDo = $this->toDoService->update($request->all(), $id);
+            $toDo = $this->toDoService->updateStatus($request->all(), $id);
             if (!$toDo) {
                 return response()->json(['error' => 'Tarefa não encontrada'], 404);
             }

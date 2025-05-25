@@ -61,6 +61,18 @@ class ToDoService
         return $todo;
     }
 
+    public function updateStatus(array $data, int $id)
+    {
+        $todo = $this->details($id);
+        if (!$todo) {
+            return false;
+        }
+        $todo->status = $data['status'];
+        $todo->update();
+
+        return $todo;
+    }
+
     public function delete(int $id)
     {
         $todo = $this->details($id);
