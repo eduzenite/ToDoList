@@ -2,16 +2,27 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\ToDoService;
 use Illuminate\Http\Request;
+use Throwable;
 
 class ToDoListController extends Controller
 {
+    public function __construct(
+        protected readonly ToDoService  $toDoService
+    ) {}
+
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-
+        try {
+            $toDoList = $this->toDoService->list($request->all());
+            return response()->json($toDoList);
+        } catch (Throwable $e) {
+            return response()->json(['error', $e->getMessage(), 500]);
+        }
     }
 
     /**
@@ -19,7 +30,12 @@ class ToDoListController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            $toDo = $this->toDoService->create($request->all());
+            return response()->json($toDo, 201);
+        } catch (Throwable $e) {
+            return response()->json(['error', $e->getMessage(), 500]);
+        }
     }
 
     /**
@@ -27,7 +43,15 @@ class ToDoListController extends Controller
      */
     public function show(string $id)
     {
-        //
+        try {
+            $toDo = $this->toDoService->details($id);
+            if (!$toDo) {
+                return response()->json(['error' => 'Tarefa não encontrada'], 404);
+            }
+            return response()->json($toDo);
+        } catch (Throwable $e) {
+            return response()->json(['error', $e->getMessage(), 500]);
+        }
     }
 
     /**
@@ -35,7 +59,15 @@ class ToDoListController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        try {
+            $toDo = $this->toDoService->update($request->all(), $id);
+            if (!$toDo) {
+                return response()->json(['error' => 'Tarefa não encontrada'], 404);
+            }
+            return response()->json($toDo);
+        } catch (Throwable $e) {
+            return response()->json(['error', $e->getMessage(), 500]);
+        }
     }
 
     /**
@@ -43,6 +75,14 @@ class ToDoListController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        try {
+            $todo = $this->toDoService->delete($id);
+            if (!$todo) {
+                return response()->json(['error' => 'Tarefa não encontrada'], 404);
+            }
+            return response()->json(['message' => 'Tarefa deletada com sucesso']);
+        } catch (Throwable $e) {
+            return response()->json(['error', $e->getMessage(), 500]);
+        }
     }
 }
