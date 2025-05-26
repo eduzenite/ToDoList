@@ -10,11 +10,18 @@ class ToDoService
     {
         $todos = ToDo::query()
             ->where('user_id', auth()->user()->id)
+            ->when($filters['q'] ?? null, function ($query, $search) {
+                return $query->where('title', 'like', '%' . $search . '%')
+                    ->orWhere('description', 'like', '%' . $search . '%');
+            })
             ->when($filters['status'] ?? null, function ($query, $status) {
                 return $query->where('status', $status);
             })
-            ->when($filters['due_date'] ?? null, function ($query, $dueDate) {
-                return $query->whereDate('due_date', $dueDate);
+            ->when($filters['due_date_start'] ?? null, function ($query, $dueDateStart) {
+                return $query->whereDate('due_date', '>=', $dueDateStart. ' 00:00:00');
+            })
+            ->when($filters['due_date_end'] ?? null, function ($query, $dueDateEnd) {
+                return $query->whereDate('due_date', '<=', $dueDateEnd. ' 23:59:59');
             })
             ->orderBy('created_at', 'desc');
 
