@@ -22,7 +22,7 @@ class ToDoFactory extends Factory
             'title' => $this->faker->sentence,
             'description' => $this->faker->paragraph,
             'due_date' => $this->faker->dateTimeBetween('now', '+1 month'),
-            'status' => $this->faker->randomElement(['pending', 'completed', 'canceled']),
+            'status' => $this->faker->randomElement(config("enums.todo.status")),
         ];
     }
 }

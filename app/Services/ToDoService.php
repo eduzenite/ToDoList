@@ -54,8 +54,13 @@ class ToDoService
             return false;
         }
         $todo->title = $data['title'];
-        $todo->description = $data['description'];
-        $todo->due_date = $data['due_date'] ?? null;
+        $todo->description = $data['description'] ?? null;
+        if (isset($data['due_date'])) {
+            $todo->due_date = $data['due_date'];
+        }
+        if (isset($data['status'])) {
+            $todo->status = $data['status'];
+        }
         $todo->update();
 
         return $todo;

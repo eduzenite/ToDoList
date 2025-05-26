@@ -13,6 +13,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/todo', [ToDoListController::class, 'store'])->name('todo.store');
     Route::get('/todo/{id}', [ToDoListController::class, 'show'])->name('todo.show');
     Route::put('/todo/{id}', [ToDoListController::class, 'update'])->name('todo.update');
-    Route::put('/todo-status/{id}', [ToDoListController::class, 'updateStatus'])->name('todo.updateStatus');
+    Route::patch('/todo-status/{id}', [ToDoListController::class, 'updateStatus'])->name('todo.updateStatus');
     Route::delete('/todo/{id}', [ToDoListController::class, 'destroy'])->name('todo.destroy');
 });

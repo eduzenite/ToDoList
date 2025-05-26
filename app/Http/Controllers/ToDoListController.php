@@ -34,7 +34,7 @@ class ToDoListController extends Controller
     {
         try {
             $toDo = $this->toDoService->create($request->all());
-            return response()->json($toDo, 201);
+            return response()->json(["data" => $toDo], 201);
         } catch (Throwable $e) {
             return response()->json(['error', $e->getMessage(), 500]);
         }
@@ -66,7 +66,7 @@ class ToDoListController extends Controller
             if (!$toDo) {
                 return response()->json(['error' => 'Tarefa não encontrada'], 404);
             }
-            return response()->json($toDo);
+            return response()->json(["data" => $toDo]);
         } catch (Throwable $e) {
             return response()->json(['error', $e->getMessage(), 500]);
         }
@@ -82,7 +82,7 @@ class ToDoListController extends Controller
             if (!$toDo) {
                 return response()->json(['error' => 'Tarefa não encontrada'], 404);
             }
-            return response()->json($toDo);
+            return response()->json(["data" => $toDo]);
         } catch (Throwable $e) {
             return response()->json(['error', $e->getMessage(), 500]);
         }
