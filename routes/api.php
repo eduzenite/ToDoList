@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\ToDoListController;
+use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\ToDoListController;
 use Illuminate\Support\Facades\Route;
 
 Route::post('/register', [AuthController::class, 'register']);

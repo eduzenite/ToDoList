@@ -1,4 +1,4 @@
-# Projeto ToDo List
+# Projeto ToDo List Backend com Laravel
 Este é um projeto simples de uma lista de tarefas (ToDo List) desenvolvido com Laravel. Ele permite que os usuários criem, visualizem, atualizem e excluam tarefas.
 
 ## Requisitos
@@ -117,3 +117,31 @@ curl --location --request DELETE 'http://localhost:8000/api/todo/2' \
 ```
 ## Swagger
 A documentação da API está disponível via Swagger. Para acessá-la, inicie o servidor e navegue até `/api/documentation`.
+
+# Projeto ToDo List Backend com Laravel com API
+
+## Tecnologias Utilizadas
+- Vue.js — Framework progressivo para a interface do usuário.
+- MySQL — Banco de dados relacional.
+- Tailwind CSS — Utilitário para estilização rápida e consistente.
+- Inertia.js — Ponte entre Laravel e Vue.js, eliminando a necessidade de APIs separadas.
+- Axios — Cliente HTTP para requisições assíncronas.
+
+## Configuração do Ambiente
+Instale as dependências do frontend:
+```bash
+npm install
+```
+No arquivo `.env`, configure as variáveis de ambiente necessárias, como a URL do backend e outras configurações específicas do Vue.js.
+Crie um chave de API para autenticação no serviço https://newsapi.org e preencha as variáveis **NEWS_API_URL** e **NEWS_API_TOKEN** no arquivo `.env`:
+
+## Executando o Projeto
+ertifique-se de que o servidor Laravel esteja rodando corretamente.
+Em seguida, para iniciar o servidor de desenvolvimento do Vue.js, execute:
+```bash
+npm run dev
+```
+
+## Acessando a Aplicação
+- Crie uma conta de usuário diretamente pela interface do frontend ou via API.
+- Após o cadastro, faça login para acessar todas as funcionalidades da aplicação.
