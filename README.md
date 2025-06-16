@@ -15,6 +15,7 @@ git clone <repositório>
 cd <nome-do-projeto>
 cp .env.example .env
 composer install
+npm install
 php artisan key:generate
 ```
 Configure o arquivo `.env` com as credenciais do banco de dados.
