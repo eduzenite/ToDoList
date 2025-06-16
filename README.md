@@ -14,9 +14,9 @@ Este é um projeto simples de uma lista de tarefas (ToDo List) desenvolvido com 
 git clone <repositório>
 cd <nome-do-projeto>
 cp .env.example .env
-composer install
 npm install
 php artisan key:generate
+composer install
 ```
 Configure o arquivo `.env` com as credenciais do banco de dados.
 
@@ -26,6 +26,7 @@ php artisan migrate --seed
 ```
 ### Inicie o servidor de desenvolvimento:
 ```bash
+npm run dev
 php artisan serve
 ```
 ### Rodar os testes:
